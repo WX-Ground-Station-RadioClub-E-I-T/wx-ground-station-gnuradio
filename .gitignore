@@ -1,0 +1,9 @@
+__pycache__
+audio
+images
+logs
+draft
+weather.tle
+weather.txt
+*.pyc
+upcoming_passes.txt

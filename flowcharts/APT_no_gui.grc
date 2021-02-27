@@ -1,0 +1,642 @@
+options:
+  parameters:
+    author: pepassaco
+    category: Custom
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: WXsat_APT_no_gui
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Desmodulador FM para NOAA
+    window_size: 3000,3000
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [3, 11]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: af_gain
+  id: variable
+  parameters:
+    comment: ''
+    value: '30'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [375, 124]
+    rotation: 0
+    state: true
+- name: antenna
+  id: variable
+  parameters:
+    comment: ''
+    value: '"RX"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [245, 83]
+    rotation: 0
+    state: enabled
+- name: bpf_hp
+  id: variable
+  parameters:
+    comment: ''
+    value: '5000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [898, 23]
+    rotation: 0
+    state: true
+- name: bpf_lp
+  id: variable
+  parameters:
+    comment: ''
+    value: '500'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1023, 26]
+    rotation: 0
+    state: true
+- name: cutoff
+  id: variable
+  parameters:
+    comment: ''
+    value: '40'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 127]
+    rotation: 0
+    state: true
+- name: f_real
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [173, 1031]
+    rotation: 0
+    state: true
+- name: fcd_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '137100000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [239, 164]
+    rotation: 0
+    state: true
+- name: lna_gain_0
+  id: variable
+  parameters:
+    comment: ''
+    value: '30'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [767, 20]
+    rotation: 0
+    state: true
+- name: prefix
+  id: variable
+  parameters:
+    comment: ''
+    value: '"/home/tallerine/sdr-apt/wav/"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [247, 18]
+    rotation: 0
+    state: enabled
+- name: recfile
+  id: variable
+  parameters:
+    comment: ''
+    value: '"/src/prueba1.wav"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 100]
+    rotation: 0
+    state: enabled
+- name: recfile2
+  id: variable
+  parameters:
+    comment: ''
+    value: '"/src/prueba2.wav"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [733, 104]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '768000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [0, 132]
+    rotation: 0
+    state: enabled
+- name: variable_qtgui_label_0
+  id: variable
+  parameters:
+    comment: ''
+    value: fcd_freq
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [431, 19]
+    rotation: 0
+    state: true
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    freq: fcd_freq*(1-f_real)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: complex
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [112, 859]
+    rotation: 0
+    state: true
+- name: analog_wfm_rcv_0_0
+  id: analog_wfm_rcv
+  parameters:
+    affinity: ''
+    alias: ''
+    audio_decimation: '2'
+    comment: "Demodulaci\xF3n FM"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    quad_rate: '96000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [560, 420]
+    rotation: 0
+    state: enabled
+- name: band_pass_filter_0
+  id: band_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    decim: '1'
+    gain: '1'
+    high_cutoff_freq: bpf_hp
+    interp: '1'
+    low_cutoff_freq: bpf_lp
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '48000'
+    type: interp_fir_filter_fff
+    width: '200'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [768, 372]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_mag_0_0
+  id: blocks_complex_to_mag
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 432]
+    rotation: 0
+    state: enabled
+- name: blocks_keep_one_in_n_0_0
+  id: blocks_keep_one_in_n
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '5'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2328, 428]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '11'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: 1/11.
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1440, 412]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_0_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: af_gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2152, 428]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_xx_0
+  id: blocks_multiply_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [69, 612]
+    rotation: 0
+    state: true
+- name: blocks_wavfile_sink_0_0
+  id: blocks_wavfile_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bits_per_sample: '16'
+    comment: Registro de archivo de audio
+    file: recfile
+    nchan: '1'
+    samp_rate: '20800'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 820]
+    rotation: 0
+    state: enabled
+- name: blocks_wavfile_sink_1_0
+  id: blocks_wavfile_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bits_per_sample: '16'
+    comment: ''
+    file: recfile2
+    nchan: '1'
+    samp_rate: '4160'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2557, 407]
+    rotation: 0
+    state: enabled
+- name: doppler_MsgPairToVar_0
+  id: doppler_MsgPairToVar
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    target: freq_real
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1037, 998]
+    rotation: 0
+    state: true
+- name: doppler_doppler_0
+  id: doppler_doppler
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gnd_alt: '666'
+    gnd_lat: '40.4167'
+    gnd_lon: '-3.70325'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    refresh_period: '0.1'
+    sat_id: ISS
+    tle_file: ''
+    verbose: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [617, 967]
+    rotation: 0
+    state: true
+- name: freq
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Frequency of the satellite
+    short_id: ''
+    type: intx
+    value: '1371000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 226]
+    rotation: 0
+    state: true
+- name: hilbert_fc_0_0
+  id: hilbert_fc
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_taps: '5'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 428]
+    rotation: 0
+    state: enabled
+- name: import_0
+  id: import
+  parameters:
+    alias: ''
+    comment: ''
+    imports: from datetime import datetime
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 26]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '2000'
+    decim: '1'
+    gain: '10'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '20800'
+    type: fir_filter_fff
+    width: '500'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1912, 380]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_1_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: cutoff*1000
+    decim: '1'
+    gain: '30'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '96000'
+    type: fir_filter_ccf
+    width: '500'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [328, 380]
+    rotation: 0
+    state: enabled
+- name: rational_resampler_xxx_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: Bajo tasa de muestreo
+    decim: samp_rate
+    fbw: '0'
+    interp: '96000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: ''
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [225, 616]
+    rotation: 0
+    state: enabled
+- name: rational_resampler_xxx_0_0_0
+  id: rational_resampler_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: Cambio tasa de muestreo
+    decim: '48000'
+    fbw: '0'
+    interp: '20800'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    taps: ''
+    type: fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1672, 404]
+    rotation: 0
+    state: enabled
+- name: soapy_source_0
+  id: soapy_source
+  parameters:
+    affinity: ''
+    agc0: 'False'
+    agc1: 'False'
+    alias: ''
+    amp_gain0: '0'
+    ant0: antenna
+    ant1: RX2
+    args: '"remote=192.168.0.10:55132, remote:driver=airspyhf"'
+    balance0: '0'
+    balance1: '0'
+    bw0: '0'
+    bw1: '0'
+    center_freq0: freq
+    center_freq1: '0'
+    clock_rate: '0'
+    clock_source: ''
+    comment: 'Use SoapySDRServer --bind="0.0.0.0:1234"
+
+      or similar to the remote server'
+    correction0: '0'
+    correction1: '0'
+    dc_offset0: '0'
+    dc_offset1: '0'
+    dc_removal0: 'False'
+    dc_removal1: 'True'
+    dev: driver=remote
+    devname: custom
+    gain_mode0: Overall
+    gain_mode1: Overall
+    ifgr_gain: '59'
+    lna_gain0: '10'
+    lna_gain1: '10'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mix_gain0: '10'
+    nchan: '1'
+    nco_freq0: '0'
+    nco_freq1: '0'
+    overall_gain0: lna_gain_0
+    overall_gain1: '10'
+    pga_gain0: '24'
+    pga_gain1: '24'
+    rfgr_gain: '9'
+    rxvga1_gain: '5'
+    rxvga2_gain: '0'
+    samp_rate: samp_rate
+    sdrplay_agc_setpoint: '-30'
+    sdrplay_biastee: 'True'
+    sdrplay_dabnotch: 'False'
+    sdrplay_if_mode: Zero-IF
+    sdrplay_rfnotch: 'False'
+    settings0: ''
+    settings1: ''
+    stream_args: ''
+    tia_gain0: '0'
+    tia_gain1: '0'
+    tune_args0: ''
+    tune_args1: ''
+    tuner_gain0: '10'
+    type: fc32
+    vga_gain0: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [32, 276]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '1']
+- [analog_wfm_rcv_0_0, '0', band_pass_filter_0, '0']
+- [band_pass_filter_0, '0', blocks_wavfile_sink_0_0, '0']
+- [band_pass_filter_0, '0', hilbert_fc_0_0, '0']
+- [blocks_complex_to_mag_0_0, '0', blocks_moving_average_xx_0_0, '0']
+- [blocks_keep_one_in_n_0_0, '0', blocks_wavfile_sink_1_0, '0']
+- [blocks_moving_average_xx_0_0, '0', rational_resampler_xxx_0_0_0, '0']
+- [blocks_multiply_const_vxx_0_0, '0', blocks_keep_one_in_n_0_0, '0']
+- [blocks_multiply_xx_0, '0', rational_resampler_xxx_0, '0']
+- [doppler_doppler_0, dop_factor, doppler_MsgPairToVar_0, inpair]
+- [hilbert_fc_0_0, '0', blocks_complex_to_mag_0_0, '0']
+- [low_pass_filter_0_0, '0', blocks_multiply_const_vxx_0_0, '0']
+- [low_pass_filter_1_0, '0', analog_wfm_rcv_0_0, '0']
+- [rational_resampler_xxx_0, '0', low_pass_filter_1_0, '0']
+- [rational_resampler_xxx_0_0_0, '0', low_pass_filter_0_0, '0']
+- [soapy_source_0, '0', blocks_multiply_xx_0, '0']
+
+metadata:
+  file_format: 1
